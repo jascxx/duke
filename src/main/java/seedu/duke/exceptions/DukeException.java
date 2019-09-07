@@ -1,5 +1,8 @@
 package seedu.duke.exceptions;
 
+/**
+ * Parent class for all Duke related exceptions.
+ */
 public abstract class DukeException extends Exception {
     private String desc;
 
