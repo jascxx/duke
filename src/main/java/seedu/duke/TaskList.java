@@ -10,6 +10,11 @@ import java.util.ArrayList;
 public class TaskList extends ArrayList<Task> {
     private Storage storage;
 
+    /**
+     * Constructor.
+     * @param storage To save the data everytime a change happens. {@code null} if not associated
+     *                to any {@code storage}
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
     }
@@ -17,14 +22,18 @@ public class TaskList extends ArrayList<Task> {
     @Override
     public boolean add(Task task) {
         boolean added = super.add(task);
-        storage.save(this);
+        if (storage != null) {
+            storage.save(this);
+        }
         return added;
     }
 
     @Override
     public Task remove(int index) {
         Task removed = super.remove(index - 1);
-        storage.save(this);
+        if (storage != null) {
+            storage.save(this);
+        }
         return removed;
     }
 
@@ -38,5 +47,15 @@ public class TaskList extends ArrayList<Task> {
      */
     public void notifyChange() {
         storage.save(this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= size(); ++i) {
+            String info = i + ". " + get(i) + "\n";
+            sb.append(info);
+        }
+        return sb.toString();
     }
 }

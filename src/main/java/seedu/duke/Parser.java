@@ -95,13 +95,10 @@ public class Parser {
                 .stream()
                 .filter(x -> x.getDescription().contains(keyword))
                 .collect(Collectors.toList());
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < list.size(); ++i) {
-            String info = (i + 1) + ". " + list.get(i) + "\n";
-            sb.append(info);
-        }
-        return sb.toString();
+        TaskList matchTaskList = new TaskList(null);
+        matchTaskList.addAll(list);
+        return "Here are the matching tasks in your list:\n" +
+                matchTaskList.toString() + "\n";
     }
 
     /**
@@ -167,13 +164,8 @@ public class Parser {
      * @return The list.
      */
     private String list() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
-        for (int i = 1; i <= taskList.size(); ++i) {
-            String info = i + ". " + taskList.get(i) + "\n";
-            sb.append(info);
-        }
-        return sb.toString();
+        return "Here are the tasks in your list:\n" +
+                taskList.toString() + "\n";
     }
 
     /**
